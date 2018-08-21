@@ -1,0 +1,2 @@
+traceProviderFilter=com.sunlands.dubbo.core.filter.TraceProviderFilter
+traceConsumerFilter=com.sunlands.dubbo.core.filter.TraceConsumerFilter

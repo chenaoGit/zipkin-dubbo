@@ -1,0 +1,47 @@
+server:
+  port: 11009
+spring:
+  application:
+    name: zipkin-serverName
+#zipkin\u6570\u636E\u4FDD\u5B58\u5230\u6570\u636E\u5E93\u4E2D\u9700\u8981\u8FDB\u884C\u5982\u4E0B\u914D\u7F6E
+  sleuth:
+    enabled: false
+    async:
+      enabled: true  #\u8868\u793A\u5F53\u524D\u7A0B\u5E8F\u4E0D\u4F7F\u7528sleuth
+    sampler:
+      percentage: 1.0
+  datasource:
+#    schema: classpath:/zipkin.sql
+    url: jdbc:mysql://localhost:3306/chenao?autoReconnect=true&useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull&useSSL=false
+    username: root
+    password: root
+    driver-class-name: com.mysql.jdbc.Driver
+    initialize: true
+    continue-on-error: true
+
+  #通过rabbitmq来手机消息,http收集不用设置
+#  rabbitmq:
+#    host: localhost
+#    port: 5672
+#    username: guest
+#    password: guest
+#    listener:
+#     simple:
+#        concurrency: 1
+#        max-concurrency: 10
+#        acknowledge-mode: auto
+
+zipkin:
+  storage:
+    type : mysql #\u8868\u793Azipkin\u6570\u636E\u5B58\u50A8\u65B9\u5F0F\u662Fmysql
+  collector:
+    rabbitmq:
+      addresses: localhost:5672
+      password: guest
+      username: guest
+      queue: zipkin
+      listener:
+       simple:
+          concurrency: 1
+          max-concurrency: 10
+          acknowledge-mode: auto
